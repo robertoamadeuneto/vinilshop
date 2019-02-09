@@ -29,14 +29,14 @@ public class SpotifyIntegrationLock implements Serializable {
     private Boolean integrated;
 
     @Column(name = "integrated_at")
-    private LocalDateTime localDate;
+    private LocalDateTime integratedAt;
 
     public SpotifyIntegrationLock() {
     }
 
     public SpotifyIntegrationLock(Boolean integrated, LocalDateTime localDate) {
         this.integrated = integrated;
-        this.localDate = localDate;
+        this.integratedAt = localDate;
     }
 
     public Long getId() {
@@ -55,12 +55,12 @@ public class SpotifyIntegrationLock implements Serializable {
         this.integrated = integrated;
     }
 
-    public LocalDateTime getLocalDate() {
-        return localDate;
+    public LocalDateTime getIntegratedAt() {
+        return integratedAt;
     }
 
-    public void setLocalDate(LocalDateTime localDate) {
-        this.localDate = localDate;
+    public void setIntegratedAt(LocalDateTime integratedAt) {
+        this.integratedAt = integratedAt;
     }
 
     @Override
@@ -90,6 +90,6 @@ public class SpotifyIntegrationLock implements Serializable {
 
     @Override
     public String toString() {
-        return "SpotifyIntegrationLock{" + "id=" + id + ", integrated=" + integrated + ", localDate=" + localDate + '}';
+        return "SpotifyIntegrationLock{" + "id=" + id + ", integrated=" + integrated + ", localDate=" + integratedAt + '}';
     }
 }

@@ -1,6 +1,7 @@
 package com.vinilshop.application.controller;
 
 import com.vinilshop.application.exception.ResourceNotFoundException;
+import com.vinilshop.application.exception.SellIdConflictException;
 import com.vinilshop.domain.model.Sell;
 import com.vinilshop.domain.model.SellItem;
 import com.vinilshop.domain.service.SellItemService;
@@ -92,6 +93,9 @@ public class SellItemController {
     public ResponseEntity<?> add(@PathVariable("idSell") Long idSell,
             @RequestBody SellItem sellItem) {
         Sell sell = verifySell(idSell);
+        if (!sell.getId().equals(sellItem.getSell().getId())) {
+            throw new SellIdConflictException(sellItem.getSell().getId());
+        }
         return new ResponseEntity<>(sellItemService.add(sell, sellItem), HttpStatus.CREATED);
     }
 

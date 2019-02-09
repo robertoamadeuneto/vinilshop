@@ -1,6 +1,8 @@
 package com.vinilshop.domain.integration.spotify.impl;
 
 import com.vinilshop.domain.integration.spotify.SpotifyIntegration;
+import com.vinilshop.domain.integration.spotify.exception.GetSpotifyAlbumsException;
+import com.vinilshop.domain.integration.spotify.exception.GetSpotifyTokenException;
 import com.vinilshop.domain.model.EnumGenre;
 import com.vinilshop.domain.integration.spotify.mapper.SearchMapper;
 import com.vinilshop.domain.integration.spotify.mapper.TokenMapper;
@@ -24,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -78,12 +81,15 @@ public class SpotifyIntegrationImpl implements SpotifyIntegration {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<TokenMapper> response = restTemplate.exchange(URL_SPOTIFY_TOKEN,
-                HttpMethod.POST,
-                request,
-                TokenMapper.class);
-
-        return response.getBody();
+        try {
+            ResponseEntity<TokenMapper> response = restTemplate.exchange(URL_SPOTIFY_TOKEN,
+                    HttpMethod.POST,
+                    request,
+                    TokenMapper.class);
+            return response.getBody();
+        } catch (HttpClientErrorException ex) {
+            throw new GetSpotifyTokenException(ex.getMessage());
+        }
     }
 
     /**
@@ -101,14 +107,18 @@ public class SpotifyIntegrationImpl implements SpotifyIntegration {
         RestTemplate restTemplate = new RestTemplate();
 
         for (EnumGenre genre : EnumGenre.values()) {
-            ResponseEntity<SearchMapper> response = restTemplate.exchange(URL_SPOTIFY_SEARCH + "&q=" + genre.getDescription(),
-                    HttpMethod.GET,
-                    httpEntity,
-                    SearchMapper.class);
+            try {
+                ResponseEntity<SearchMapper> response = restTemplate.exchange(URL_SPOTIFY_SEARCH + "&q=" + genre.getDescription(),
+                        HttpMethod.GET,
+                        httpEntity,
+                        SearchMapper.class);
 
-            if (response.getStatusCode().equals(HttpStatus.OK)
-                    && !Objects.isNull(response.getBody())) {
-                saveAlbumsByGenre(response.getBody(), genre);
+                if (response.getStatusCode().equals(HttpStatus.OK)
+                        && !Objects.isNull(response.getBody())) {
+                    saveAlbumsByGenre(response.getBody(), genre);
+                }
+            } catch (HttpClientErrorException ex) {
+                throw new GetSpotifyAlbumsException(ex.getMessage());
             }
         }
     }
@@ -119,6 +129,7 @@ public class SpotifyIntegrationImpl implements SpotifyIntegration {
      * @param genre a {@link EnumGenre} option.
      * @param searchMapper a {@link SearchMapper} object.
      */
+    @Transactional
     private void saveAlbumsByGenre(SearchMapper searchMapper, EnumGenre genre) {
         searchMapper.getAlbums().getAlbums().stream().map((am) -> {
             Album album = new Album();

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.vinilshop.domain.service.AlbumService;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Class responsible for mapping all RESTful endpoints related to the
@@ -38,6 +39,7 @@ public class AlbumController implements Serializable {
     /**
      * Finds all {@link Album}.
      *
+     * @param genreDescription a {@link String} with the genre description.
      * @param pageable a {@link Pageable} object.
      * @return a {@link ResponseEntity} with the list of all {@link Album}.
      */
@@ -46,8 +48,11 @@ public class AlbumController implements Serializable {
             produces = "application/json",
             httpMethod = "GET",
             code = 200)
-    public ResponseEntity<?> findAll(Pageable pageable) {
-        return new ResponseEntity<>(albumService.findAll(pageable), HttpStatus.OK);
+    public ResponseEntity<?> findAll(@RequestParam(value = "genre", required = false) String genreDescription,
+            Pageable pageable) {
+        return new ResponseEntity<>(genreDescription != null
+                ? albumService.findByGenreOrderByNameAsc(genreDescription, pageable)
+                : albumService.findAll(pageable), HttpStatus.OK);
     }
 
     /**

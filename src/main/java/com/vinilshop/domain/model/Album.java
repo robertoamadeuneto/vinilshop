@@ -43,6 +43,10 @@ public class Album implements Serializable {
     public Album() {
     }
 
+    public Album(Long id) {
+        this.id = id;
+    }
+
     public Album(Long id, String artist, String name, EnumGenre genre, BigDecimal price) {
         this.id = id;
         this.artist = artist;

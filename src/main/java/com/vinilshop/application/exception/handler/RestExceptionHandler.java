@@ -1,8 +1,9 @@
 package com.vinilshop.application.exception.handler;
 
-import com.vinilshop.application.exception.ExceptionDetails;
+import com.vinilshop.application.exception.details.ExceptionDetails;
 import com.vinilshop.application.exception.ResourceNotFoundException;
 import com.vinilshop.application.exception.SellCompletedException;
+import com.vinilshop.application.exception.SellIdConflictException;
 import com.vinilshop.application.exception.details.ValidationExceptionDetails;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +31,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException rnfException) {
-        ExceptionDetails rfnDetails = ExceptionDetails.Builder
+        ExceptionDetails exceptionDetails = ExceptionDetails.Builder
                 .newBuilder()
                 .timestamp(new Date().getTime())
                 .status(HttpStatus.NOT_FOUND.value())
@@ -39,12 +40,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 .developerMessage(rnfException.getClass().getName())
                 .build();
 
-        return new ResponseEntity<>(rfnDetails, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(SellCompletedException.class)
     public ResponseEntity<?> handleResourceNotFoundException(SellCompletedException scException) {
-        ExceptionDetails rfnDetails = ExceptionDetails.Builder
+        ExceptionDetails exceptionDetails = ExceptionDetails.Builder
                 .newBuilder()
                 .timestamp(new Date().getTime())
                 .status(HttpStatus.BAD_REQUEST.value())
@@ -53,7 +54,21 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 .developerMessage(scException.getClass().getName())
                 .build();
 
-        return new ResponseEntity<>(rfnDetails, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(SellIdConflictException.class)
+    public ResponseEntity<?> handleSellIdConflictException(SellIdConflictException sicException) {
+        ExceptionDetails exceptionDetails = ExceptionDetails.Builder
+                .newBuilder()
+                .timestamp(new Date().getTime())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .title("Sell ID conflict.")
+                .detail(sicException.getMessage())
+                .developerMessage(sicException.getClass().getName())
+                .build();
+
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
 
     @Override
@@ -84,7 +99,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             HttpHeaders headers,
             HttpStatus status,
             WebRequest request) {
-        ExceptionDetails errorDetails = ExceptionDetails.Builder
+        ExceptionDetails exceptionDetails = ExceptionDetails.Builder
                 .newBuilder()
                 .timestamp(new Date().getTime())
                 .status(HttpStatus.BAD_REQUEST.value())
@@ -92,7 +107,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 .detail(hmnrException.getMessage())
                 .developerMessage(hmnrException.getClass().getName())
                 .build();
-        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
 
     @Override
@@ -101,7 +116,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             HttpHeaders headers,
             HttpStatus status,
             WebRequest request) {
-        ExceptionDetails errorDetails = ExceptionDetails.Builder
+        ExceptionDetails exceptionDetails = ExceptionDetails.Builder
                 .newBuilder()
                 .timestamp(new Date().getTime())
                 .status(status.value())
@@ -109,6 +124,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 .detail(ex.getMessage())
                 .developerMessage(ex.getClass().getName())
                 .build();
-        return new ResponseEntity<>(errorDetails, headers, status);
+        return new ResponseEntity<>(exceptionDetails, headers, status);
     }
 }

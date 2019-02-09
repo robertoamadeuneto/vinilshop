@@ -12,7 +12,7 @@ import java.util.Objects;
  */
 public enum EnumSellStatus implements Serializable {
 
-    PEDING(1),
+    PENDING(1),
     COMPLETED(2);
 
     private final Integer id;

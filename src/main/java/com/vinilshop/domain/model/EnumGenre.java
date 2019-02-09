@@ -42,4 +42,14 @@ public enum EnumGenre implements Serializable {
 
         throw new EnumConstantNotPresentException(EnumGenre.class, String.valueOf(id));
     }
+
+    public static EnumGenre getEnumGenreByDescription(String description) {
+        for (EnumGenre value : EnumGenre.values()) {
+            if (value.getDescription().trim().equalsIgnoreCase(description.trim())) {
+                return value;
+            }
+        }
+
+        throw new EnumConstantNotPresentException(EnumGenre.class, description);
+    }
 }

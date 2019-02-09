@@ -1,6 +1,7 @@
 package com.vinilshop.domain.service;
 
 import com.vinilshop.domain.model.Sell;
+import java.time.LocalDate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -22,7 +23,7 @@ public interface SellService {
     Sell initiate();
 
     /**
-     * Finds all {@link Sell}.
+     * Finds all {@link Sell} paginated.
      *
      * @param pageable a {@link Pageable} object.
      * @return a list with {@link Sell} objects.
@@ -58,4 +59,14 @@ public interface SellService {
      * @param sell a {@link Sell} object.
      */
     void recalculatePriceAndCashback(Sell sell);
+
+    /**
+     * Finds all {@link Sell} by finished at range and paginated.
+     *
+     * @param initialDate a {@link LocalDate} with the initial date.
+     * @param finalDate a {@link FinalDateTime} with the final date.
+     * @param pageable a {@link Pageable} object.
+     * @return a list with {@link Sell} objects.
+     */
+    Page<Sell> findByFinishedAtBetween(LocalDate initialDate, LocalDate finalDate, Pageable pageable);
 }

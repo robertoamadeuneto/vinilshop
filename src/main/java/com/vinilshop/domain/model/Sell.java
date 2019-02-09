@@ -1,8 +1,10 @@
 package com.vinilshop.domain.model;
 
 import com.vinilshop.infra.converter.EnumSellStatusConverter;
+import com.vinilshop.infra.converter.LocalDateConverter;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -41,6 +43,10 @@ public class Sell implements Serializable {
     @Convert(converter = EnumSellStatusConverter.class)
     private EnumSellStatus sellStatus;
 
+    @Column(name = "finished_at")
+    @Convert(converter = LocalDateConverter.class)
+    private LocalDate finishedAt;
+
     @OrderBy(value = "id")
     @OneToMany(mappedBy = "sell", fetch = FetchType.LAZY)
     private Collection<SellItem> sellItems;
@@ -59,11 +65,12 @@ public class Sell implements Serializable {
         this.sellItems = sellItems;
     }
 
-    public Sell(Long id, BigDecimal price, BigDecimal cashback, EnumSellStatus sellStatus, Collection<SellItem> sellItems) {
+    public Sell(Long id, BigDecimal price, BigDecimal cashback, EnumSellStatus sellStatus, LocalDate finishedAt, Collection<SellItem> sellItems) {
         this.id = id;
         this.price = price;
         this.cashback = cashback;
         this.sellStatus = sellStatus;
+        this.finishedAt = finishedAt;
         this.sellItems = sellItems;
     }
 
@@ -97,6 +104,14 @@ public class Sell implements Serializable {
 
     public void setSellStatus(EnumSellStatus sellStatus) {
         this.sellStatus = sellStatus;
+    }
+
+    public LocalDate getFinishedAt() {
+        return finishedAt;
+    }
+
+    public void setFinishedAt(LocalDate finishedAt) {
+        this.finishedAt = finishedAt;
     }
 
     public Collection<SellItem> getSellItems() {
@@ -134,6 +149,6 @@ public class Sell implements Serializable {
 
     @Override
     public String toString() {
-        return "Sell{" + "id=" + id + ", price=" + price + ", cashback=" + cashback + ", sellStatus=" + sellStatus + ", sellItems=" + sellItems + '}';
+        return "Sell{" + "id=" + id + ", price=" + price + ", cashback=" + cashback + ", sellStatus=" + sellStatus + ", finishedAt=" + finishedAt + ", sellItems=" + sellItems + '}';
     }
 }

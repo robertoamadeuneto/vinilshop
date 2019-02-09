@@ -1,6 +1,7 @@
 package com.vinilshop.domain.service.impl;
 
 import com.vinilshop.domain.model.Album;
+import com.vinilshop.domain.model.EnumGenre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.vinilshop.domain.service.AlbumService;
@@ -33,5 +34,10 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public Album findById(Long id) {
         return albumRepository.findOne(id);
+    }
+
+    @Override
+    public Page<Album> findByGenreOrderByNameAsc(String genreDescription, Pageable pageable) {
+        return albumRepository.findByGenreOrderByNameAsc(EnumGenre.getEnumGenreByDescription(genreDescription), pageable);
     }
 }

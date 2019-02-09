@@ -1,6 +1,5 @@
 package com.vinilshop.application.exception.details;
 
-import com.vinilshop.application.exception.ExceptionDetails;
 import com.vinilshop.application.exception.ResourceNotFoundException;
 
 /**

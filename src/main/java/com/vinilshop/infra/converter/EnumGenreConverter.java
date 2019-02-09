@@ -14,15 +14,26 @@ import javax.persistence.Converter;
 @Converter(autoApply = true)
 public class EnumGenreConverter implements AttributeConverter<EnumGenre, Integer> {
 
+    /**
+     * Converts to a database column.
+     *
+     * @param enumGenre a {@link EnumGenre} object.
+     * @return an {@link Integer}.
+     */
     @Override
     public Integer convertToDatabaseColumn(EnumGenre enumGenre) {
         if (enumGenre == null) {
             return null;
         }
-
         return enumGenre.getId();
     }
 
+    /**
+     * Converts to an entity attribute.
+     *
+     * @param id an {@link Integer} genre identifier.
+     * @return an {@link EnumGenre} object.
+     */
     @Override
     public EnumGenre convertToEntityAttribute(Integer id) {
         if (id != null) {

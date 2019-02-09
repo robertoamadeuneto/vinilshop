@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <!-- Inserting into: album -->
+    <changeSet id="1" author="robertoAmadeuNeto">
+        <!--1 -->
+        <insert tableName="album">
+            <column name="name" value="album"/>
+            <column name="name" value="The Number of The Beast"/>
+            <column name="artist" value="Iron Maiden"/>
+            <column name="price" value="66"/>
+            <column name="genre_id" value="4"/>
+        </insert>
+    </changeSet>
+    
+    <!-- Inserting into: sell -->
+    <changeSet id="2" author="robertoAmadeuNeto">
+        <!-- 1 -->
+        <insert tableName="sell">
+            <column name="price" value="66"/>
+            <column name="cashback" value="66.6"/>
+            <column name="sell_status_id" value="2"/>
+            <column name="finished_at" value="2019-02-04"/>
+        </insert>
+    </changeSet>
+    
+    <!-- Inserting into: sell_item -->
+    <changeSet id="3" author="robertoAmadeuNeto">
+        <!-- 1 -->
+        <insert tableName="sell_item">
+            <column name="sell_id" value="1"/>
+            <column name="album_id" value="1"/>
+            <column name="price" value="66.00"/>
+            <column name="cashback" value="6.60"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.vinilshop.domain.service.SellService;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Class responsible for mapping all RESTful endpoints related to the
@@ -39,6 +43,8 @@ public class SellController {
     /**
      * Finds all {@link Sell}.
      *
+     * @param initialDate a {@link LocalDateTime} to filter the initial date.
+     * @param finalDate a {@link LocalDateTime} to filter the final date.
      * @param pageable a {@link Pageable} object.
      * @return a {@link ResponseEntity} with the list of all {@link Sell}.
      */
@@ -47,8 +53,13 @@ public class SellController {
             produces = "application/json",
             httpMethod = "GET",
             code = 200)
-    public ResponseEntity<?> findAll(Pageable pageable) {
-        return new ResponseEntity<>(sellService.findAll(pageable), HttpStatus.OK);
+    public ResponseEntity<?> findAll(@RequestParam(value = "initialDate", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate initialDate,
+            @RequestParam(value = "finalDate", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate finalDate,
+            Pageable pageable) {
+        return new ResponseEntity<>(initialDate != null && finalDate != null
+                ? sellService.findByFinishedAtBetween(initialDate, finalDate, pageable)
+                : sellService.findAll(pageable),
+                HttpStatus.OK);
     }
 
     /**

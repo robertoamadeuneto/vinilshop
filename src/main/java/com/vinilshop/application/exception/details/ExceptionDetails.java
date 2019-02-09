@@ -1,10 +1,10 @@
-package com.vinilshop.application.exception;
+package com.vinilshop.application.exception.details;
 
 /**
  * Class representing error details.
  *
  * @author Roberto Amadeu Neto
- * @since 24/09/2018
+ * @since 09/02/2019
  * @since 1.0
  */
 public class ExceptionDetails {
