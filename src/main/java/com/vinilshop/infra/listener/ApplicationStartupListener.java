@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  * @since 08/02/2019
  * @version 1.0
  */
-@Profile("production")
+@Profile("spotify-integration")
 @Component
 public class ApplicationStartupListener implements ApplicationListener<ApplicationReadyEvent> {
 

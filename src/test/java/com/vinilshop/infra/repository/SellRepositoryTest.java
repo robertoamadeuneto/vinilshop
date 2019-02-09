@@ -2,7 +2,6 @@ package com.vinilshop.infra.repository;
 
 import com.vinilshop.domain.model.EnumSellStatus;
 import com.vinilshop.domain.model.Sell;
-import com.vinilshop.infra.repository.SellRepository;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import org.assertj.core.api.Assertions;
@@ -25,24 +24,24 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class SellRepositoryTest {
-    
+
     @Autowired
     private SellRepository sellRepository;
-    
+
     @Test
     public void shouldFindAll() {
         Page<Sell> sells = sellRepository.findAll(any(Pageable.class));
         Assertions.assertThat(sells).isNotNull();
-        Assertions.assertThat(sells.getContent().size()).isEqualTo(1);
+        Assertions.assertThat(sells.getContent().size()).isGreaterThan(0);
     }
-    
+
     @Test
     public void shouldFindOne() {
         Sell sell = sellRepository.findOne(1L);
         Assertions.assertThat(sell).isNotNull();
         Assertions.assertThat(sell.getId()).isEqualTo(1L);
     }
-    
+
     @Test
     public void shouldFindFinishedAtBetween() {
         LocalDate initialDate = LocalDate.of(2019, 2, 4);
@@ -51,7 +50,7 @@ public class SellRepositoryTest {
         Assertions.assertThat(sells).isNotNull();
         Assertions.assertThat(sells.getContent().size()).isEqualTo(1);
     }
-    
+
     @Test
     public void shouldSave() {
         Sell sell = new Sell();
@@ -62,5 +61,6 @@ public class SellRepositoryTest {
         sell = sellRepository.save(sell);
         Assertions.assertThat(sell.getId()).isNotNull();
         sellRepository.delete(sell.getId());
+        Assertions.assertThat(sellRepository.findOne(sell.getId())).isNull();
     }
 }

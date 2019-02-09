@@ -13,6 +13,7 @@ import com.vinilshop.infra.repository.SellItemRepository;
 import com.vinilshop.infra.repository.SellRepository;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -25,33 +26,33 @@ import org.springframework.data.domain.Pageable;
  */
 @Service
 public class SellServiceImpl implements SellService {
-    
+
     private final SellRepository sellRepository;
     private final SellItemRepository sellItemRepository;
-    
+
     @Autowired
     public SellServiceImpl(SellRepository sellRepository,
             SellItemRepository sellItemRepository) {
         this.sellRepository = sellRepository;
         this.sellItemRepository = sellItemRepository;
     }
-    
+
     @Override
     @Transactional
     public Sell initiate() {
         return sellRepository.save(new Sell(new BigDecimal(0), new BigDecimal(0), EnumSellStatus.PENDING, null));
     }
-    
+
     @Override
     public Page<Sell> findAll(Pageable pageable) {
         return this.sellRepository.findAll(pageable);
     }
-    
+
     @Override
     public Sell findById(Long id) {
         return sellRepository.findOne(id);
     }
-    
+
     @Override
     @Transactional
     public Sell finish(Sell sell) {
@@ -60,14 +61,17 @@ public class SellServiceImpl implements SellService {
         sell.setFinishedAt(LocalDate.now());
         return sellRepository.save(sell);
     }
-    
+
     @Override
     public void verifySellStatus(Sell sell) {
-        if (sell.getSellStatus().equals(EnumSellStatus.COMPLETED)) {
-            throw new SellCompletedException(sell.getId());
+        if (!Objects.isNull(sell.getId())) {
+            sell = sellRepository.findOne(sell.getId());
+            if (sell.getSellStatus().equals(EnumSellStatus.COMPLETED)) {
+                throw new SellCompletedException(sell.getId());
+            }
         }
     }
-    
+
     @Override
     public void recalculatePriceAndCashback(Sell sell) {
         Collection<SellItem> sellItems = this.sellItemRepository.findBySell(sell);
@@ -81,7 +85,7 @@ public class SellServiceImpl implements SellService {
         sell.setCashback(cashback);
         sellRepository.save(sell);
     }
-    
+
     @Override
     public Page<Sell> findByFinishedAtBetween(LocalDate initialDate, LocalDate finalDate, Pageable pageable) {
         return sellRepository.findByFinishedAtBetween(initialDate, finalDate, pageable);
