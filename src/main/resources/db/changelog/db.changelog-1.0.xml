@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    
+    <!-- Creating table: genre -->
+    <changeSet id="1" author="robertoAmadeuNeto">
+        <createTable tableName="genre">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cashback_sunday" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cashback_monday" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cashback_thursday" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cashback_wednesday" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cashback_tuesday" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cashback_friday" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cashback_saturday" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <!-- Inserting into: genre -->
+    <changeSet id="2" author="robertoAmadeuNeto">
+        <insert tableName="genre">
+            <column name="name" value="POP"/>
+            <column name="cashback_sunday" value="25"/>
+            <column name="cashback_monday" value="7"/>
+            <column name="cashback_thursday" value="6"/>
+            <column name="cashback_wednesday" value="2"/>
+            <column name="cashback_tuesday" value="10"/>
+            <column name="cashback_friday" value="15"/>
+            <column name="cashback_saturday" value="20"/>
+        </insert>
+        
+        <insert tableName="genre">
+            <column name="name" value="MPB"/>
+            <column name="cashback_sunday" value="30"/>
+            <column name="cashback_monday" value="5"/>
+            <column name="cashback_thursday" value="10"/>
+            <column name="cashback_wednesday" value="15"/>
+            <column name="cashback_tuesday" value="20"/>
+            <column name="cashback_friday" value="25"/>
+            <column name="cashback_saturday" value="30"/>
+        </insert>
+        
+        <insert tableName="genre">
+            <column name="name" value="CLASSIC"/>
+            <column name="cashback_sunday" value="35"/>
+            <column name="cashback_monday" value="3"/>
+            <column name="cashback_thursday" value="5"/>
+            <column name="cashback_wednesday" value="8"/>
+            <column name="cashback_tuesday" value="13"/>
+            <column name="cashback_friday" value="18"/>
+            <column name="cashback_saturday" value="25"/>
+        </insert>        
+                
+        <insert tableName="genre">
+            <column name="name" value="ROCK"/>
+            <column name="cashback_sunday" value="40"/>
+            <column name="cashback_monday" value="10"/>
+            <column name="cashback_thursday" value="15"/>
+            <column name="cashback_wednesday" value="15"/>
+            <column name="cashback_tuesday" value="15"/>
+            <column name="cashback_friday" value="20"/>
+            <column name="cashback_saturday" value="40"/>
+        </insert>
+    </changeSet>
+    
+    <!-- Creating table: album -->
+    <changeSet id="3" author="robertoAmadeuNeto">
+        <createTable tableName="album">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="artist" type="varchar(100)"/>
+            <column name="name" type="varchar(100)"/>
+            <column name="genre_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="numeric(12, 2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <!-- Adding Foreign Key Constraint: album_genre_id_fk -->
+    <changeSet id="4" author="robertoAmadeuNeto">
+        <addForeignKeyConstraint constraintName="album_genre_id_fk" baseTableName="album" baseColumnNames="genre_id" referencedColumnNames="id" referencedTableName="genre"/>
+    </changeSet>
+    
+    <!-- Creating table: sell_status -->
+    <changeSet id="5" author="robertoAmadeuNeto">
+        <createTable tableName="sell_status">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="description" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <!-- Inserting into: sell_status -->
+    <changeSet id="6" author="robertoAmadeuNeto">
+        <insert tableName="sell_status">
+            <column name="description" value="PENDING"/>
+        </insert>
+        
+        <insert tableName="sell_status">
+            <column name="description" value="COMPLETED"/>
+        </insert>
+    </changeSet>
+    
+    <!-- Creating table: sell -->
+    <changeSet id="7" author="robertoAmadeuNeto">
+        <createTable tableName="sell">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="price" type="numeric(12, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cashback" type="numeric(12, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sell_status_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <!-- Adding Foreign Key Constraint: sell_status_id_fk -->
+    <changeSet id="8" author="robertoAmadeuNeto">
+        <addForeignKeyConstraint constraintName="sell_sell_status_id_fk" baseTableName="sell" baseColumnNames="sell_status_id" referencedColumnNames="id" referencedTableName="sell_status"/>
+    </changeSet>
+    
+    <!-- Creating table: sell_item -->
+    <changeSet id="9" author="robertoAmadeuNeto">
+        <createTable tableName="sell_item">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="sell_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="album_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="numeric(12, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cashback" type="numeric(12, 2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <!-- Adding Foreign Key Constraint: sell_item_sell_id_fk -->
+    <changeSet id="10" author="robertoAmadeuNeto">
+        <addForeignKeyConstraint constraintName="sell_item_sell_id_fk" baseTableName="sell_item" baseColumnNames="sell_id" referencedColumnNames="id" referencedTableName="sell"/>
+    </changeSet>
+    
+    <!-- Adding Foreign Key Constraint: sell_item_album_id_fk -->
+    <changeSet id="11" author="robertoAmadeuNeto">
+        <addForeignKeyConstraint constraintName="sell_item_album_id_fk" baseTableName="sell_item" baseColumnNames="album_id" referencedColumnNames="id" referencedTableName="album"/>
+    </changeSet>
+    
+    <!-- Creating table: spotify_integration_lock -->
+    <changeSet id="12" author="robertoAmadeuNeto">
+        <createTable tableName="spotify_integration_lock">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="integrated" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="integrated_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
