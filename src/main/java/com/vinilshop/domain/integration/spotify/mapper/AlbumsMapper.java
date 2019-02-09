@@ -5,8 +5,12 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
+ * A simple mapper that represents the albums inside the result of the Spotify
+ * API's /search endpoint.
  *
- * @author robertoaneto
+ * @author Roberto Amadeu Neto
+ * @since 08/02/2019
+ * @version 1.0
  */
 public class AlbumsMapper implements Serializable {
 

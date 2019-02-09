@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 
 /**
- * A simple POJO that represents the result of the Spotify API's /search
+ * A simple mapper that represents the result of the Spotify API's /search
  * endpoint.
  *
  * @author Roberto Amadeu Neto

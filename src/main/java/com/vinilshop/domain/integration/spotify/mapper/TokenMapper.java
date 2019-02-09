@@ -9,6 +9,7 @@ import java.io.Serializable;
  *
  * @author Roberto Amadeu Neto
  * @since 08/02/2019
+ * @since 1.0
  */
 public class TokenMapper implements Serializable {
 

@@ -9,6 +9,7 @@ import javax.persistence.Converter;
  *
  * @author Roberto Amadeu Neto
  * @since 06/02/2019
+ * @version 1.0
  */
 @Converter(autoApply = true)
 public class EnumGenreConverter implements AttributeConverter<EnumGenre, Integer> {

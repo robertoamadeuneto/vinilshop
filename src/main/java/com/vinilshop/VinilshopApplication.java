@@ -13,6 +13,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class VinilshopApplication {
 
+    /**
+     * Starts the application.
+     *
+     * @param args an array of {@link String}.
+     */
     public static void main(String[] args) {
         SpringApplication.run(VinilshopApplication.class, args);
     }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
  *
  * @author Roberto Amadeu Neto
  * @since 08/02/2019
+ * @version 1.0
  */
 @Component
 public class ApplicationStartupListener implements ApplicationListener<ApplicationReadyEvent> {

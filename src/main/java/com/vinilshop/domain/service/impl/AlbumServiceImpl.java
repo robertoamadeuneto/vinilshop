@@ -1,7 +1,6 @@
 package com.vinilshop.domain.service.impl;
 
 import com.vinilshop.domain.model.Album;
-import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.vinilshop.domain.service.AlbumService;

@@ -12,9 +12,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  *
  * @author Roberto Amadeu Neto
  * @sice 07/02/2019
+ * @since 1.0
  */
 @Configuration
-public class SpringBootEssentialsAdapter extends WebMvcConfigurerAdapter {
+public class PageableAdapter extends WebMvcConfigurerAdapter {
 
     /**
      * Modifies the paging configurations.
