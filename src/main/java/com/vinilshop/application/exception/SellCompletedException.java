@@ -14,6 +14,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class SellCompletedException extends RuntimeException {
 
     public SellCompletedException(Long id) {
-        super("This Sell is already completed. ID: " + id);
+        super("This Sell is already completed. ID: " + id + ".");
     }
 }

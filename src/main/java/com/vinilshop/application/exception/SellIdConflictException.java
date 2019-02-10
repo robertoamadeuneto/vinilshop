@@ -15,6 +15,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class SellIdConflictException extends RuntimeException {
 
     public SellIdConflictException(Long id) {
-        super("The Sell on request body is not the same on the URL. ID: " + id);
+        super("The Sell on request body is not the same on the URL. ID: " + id + ".");
     }
 }

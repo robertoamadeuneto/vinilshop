@@ -52,6 +52,7 @@ public class SellController {
     @ApiOperation(value = "Returns a list with all sells.",
             produces = "application/json",
             httpMethod = "GET",
+            response = Sell[].class,
             code = 200)
     public ResponseEntity<?> findAll(@RequestParam(value = "initialDate", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate initialDate,
             @RequestParam(value = "finalDate", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate finalDate,
@@ -72,6 +73,7 @@ public class SellController {
     @ApiOperation(value = "Returns a sell by a given identifier.",
             produces = "application/json",
             httpMethod = "GET",
+            response = Sell.class,
             code = 200)
     public ResponseEntity<?> findById(@PathVariable("id") Long id) {
         Sell sell = sellService.findById(id);
@@ -90,6 +92,7 @@ public class SellController {
     @ApiOperation(value = "Initiates a new sell.",
             produces = "application/json",
             httpMethod = "POST",
+            response = Sell.class,
             code = 201)
     public ResponseEntity<?> initiate() {
         return new ResponseEntity<>(sellService.initiate(), HttpStatus.CREATED);
@@ -105,6 +108,7 @@ public class SellController {
     @ApiOperation(value = "Finishes a sell.",
             produces = "application/json",
             httpMethod = "POST",
+            response = Sell.class,
             code = 201)
     public ResponseEntity<?> finish(@PathVariable("id") Long id) {
         Sell sell = sellService.findById(id);

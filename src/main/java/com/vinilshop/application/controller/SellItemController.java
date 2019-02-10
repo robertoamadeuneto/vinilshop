@@ -53,6 +53,7 @@ public class SellItemController {
     @ApiOperation(value = "Returns a list with all sell items.",
             produces = "application/json",
             httpMethod = "GET",
+            response = SellItem[].class,
             code = 200)
     public ResponseEntity<?> findBySell(@PathVariable("idSell") Long idSell) {
         Sell sell = verifySell(idSell);
@@ -71,6 +72,7 @@ public class SellItemController {
     @ApiOperation(value = "Returns a sell by a given identifier.",
             produces = "application/json",
             httpMethod = "GET",
+            response = Sell.class,
             code = 200)
     public ResponseEntity<?> findBySellAndId(@PathVariable("idSell") Long idSell,
             @PathVariable("id") Long id) {
@@ -91,6 +93,7 @@ public class SellItemController {
             consumes = "application/json",
             produces = "application/json",
             httpMethod = "POST",
+            response = SellItem.class,
             code = 201)
     public ResponseEntity<?> add(@PathVariable("idSell") Long idSell,
             @RequestBody SellItem sellItem) {
@@ -98,7 +101,7 @@ public class SellItemController {
         if (!Objects.isNull(sellItem.getSell())
                 && !sell.getId().equals(sellItem.getSell().getId())) {
             throw new SellIdConflictException(sellItem.getSell().getId());
-        } else {
+        } else if (Objects.isNull(sellItem.getSell())) {
             sellItem.setSell(sell);
         }
         return new ResponseEntity<>(sellItemService.add(sell, sellItem), HttpStatus.CREATED);

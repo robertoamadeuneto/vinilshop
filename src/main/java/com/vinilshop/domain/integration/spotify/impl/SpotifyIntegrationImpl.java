@@ -14,6 +14,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Random;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.http.HttpEntity;
@@ -44,6 +46,7 @@ public class SpotifyIntegrationImpl implements SpotifyIntegration {
     private static final String SPOTIFY_BASE64CODE = "ZWIyYjM4MDYwYjhiNDE0NThkNGVjZmMxMWRjMTJjOTU6YzZmNDAyMWFjYzMxNDJlZThkMDE5YTEzNDJlYzU1Y2U=";
     private static final String URL_SPOTIFY_TOKEN = "https://accounts.spotify.com/api/token";
     private static final String URL_SPOTIFY_SEARCH = "https://api.spotify.com/v1/search?type=album&limit=50";
+    private static final Logger logger = LoggerFactory.getLogger(SpotifyIntegrationImpl.class);
 
     @Autowired
     public SpotifyIntegrationImpl(SpotifyIntegrationLockRepository spotifyIntegrationLockRepository,
@@ -58,9 +61,13 @@ public class SpotifyIntegrationImpl implements SpotifyIntegration {
     @Override
     @Transactional
     public void integrate() {
-        if (CollectionUtils.isEmpty(spotifyIntegrationLockRepository.findAll())) {
-            integrateAlbums(getToken());
-            lockIntegration();
+        try {
+            if (CollectionUtils.isEmpty(spotifyIntegrationLockRepository.findAll())) {
+                integrateAlbums(getToken());
+                lockIntegration();
+            }
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
         }
     }
 

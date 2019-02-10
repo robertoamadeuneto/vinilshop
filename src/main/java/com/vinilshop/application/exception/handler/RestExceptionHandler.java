@@ -1,5 +1,6 @@
 package com.vinilshop.application.exception.handler;
 
+import com.vinilshop.application.exception.EntityNotExistsException;
 import com.vinilshop.application.exception.details.ExceptionDetails;
 import com.vinilshop.application.exception.ResourceNotFoundException;
 import com.vinilshop.application.exception.SellCompletedException;
@@ -41,6 +42,20 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 .build();
 
         return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(EntityNotExistsException.class)
+    public ResponseEntity<?> handleResourceNotFoundException(EntityNotExistsException eneException) {
+        ExceptionDetails exceptionDetails = ExceptionDetails.Builder
+                .newBuilder()
+                .timestamp(new Date().getTime())
+                .status(HttpStatus.NOT_FOUND.value())
+                .title("Entity not exists.")
+                .detail(eneException.getMessage())
+                .developerMessage(eneException.getClass().getName())
+                .build();
+
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(SellCompletedException.class)

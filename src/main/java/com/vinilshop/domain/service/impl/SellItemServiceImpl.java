@@ -1,5 +1,6 @@
 package com.vinilshop.domain.service.impl;
 
+import com.vinilshop.application.exception.EntityNotExistsException;
 import com.vinilshop.domain.model.Album;
 import com.vinilshop.domain.model.Genre;
 import com.vinilshop.domain.model.Sell;
@@ -14,6 +15,7 @@ import com.vinilshop.infra.repository.SellItemRepository;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Objects;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -59,6 +61,11 @@ public class SellItemServiceImpl implements SellItemService {
         sellService.verifySellStatus(sell);
 
         Album album = albumService.findById(sellItem.getAlbum().getId());
+        if (Objects.isNull(album)) {
+            throw new EntityNotExistsException(Album.class, sellItem.getAlbum().getId());
+        }
+
+        sellItem.setAlbum(album);
         sellItem.setPrice(album.getPrice());
 
         Genre genre = genreService.findById((long) album.getGenre().getId());
@@ -67,7 +74,7 @@ public class SellItemServiceImpl implements SellItemService {
         sellItem = sellItemRepository.save(sellItem);
 
         sellService.recalculatePriceAndCashback(sell);
-        
+
         return sellItem;
     }
 
@@ -111,7 +118,7 @@ public class SellItemServiceImpl implements SellItemService {
                 cashbackPercentage = genre.getCashbackSaturday();
                 break;
         }
-        
-       return (album.getPrice().multiply(new BigDecimal(cashbackPercentage))).divide(new BigDecimal("100.00"));
+
+        return (album.getPrice().multiply(new BigDecimal(cashbackPercentage))).divide(new BigDecimal("100.00"));
     }
 }

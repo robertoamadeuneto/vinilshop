@@ -47,6 +47,7 @@ public class AlbumController implements Serializable {
     @ApiOperation(value = "Returns a list with all albums.",
             produces = "application/json",
             httpMethod = "GET",
+            response = Album[].class,
             code = 200)
     public ResponseEntity<?> findAll(@RequestParam(value = "genre", required = false) String genreDescription,
             Pageable pageable) {
@@ -65,6 +66,7 @@ public class AlbumController implements Serializable {
     @ApiOperation(value = "Returns an album by a given identifier.",
             produces = "application/json",
             httpMethod = "GET",
+            response = Album.class,
             code = 200)
     public ResponseEntity<?> findById(@PathVariable("id") Long id) {
         Album album = albumService.findById(id);
