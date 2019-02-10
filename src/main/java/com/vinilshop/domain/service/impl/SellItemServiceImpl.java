@@ -102,14 +102,14 @@ public class SellItemServiceImpl implements SellItemService {
             case MONDAY:
                 cashbackPercentage = genre.getCashbackMonday();
                 break;
-            case THURSDAY:
-                cashbackPercentage = genre.getCashbackThursday();
+            case TUESDAY:
+                cashbackPercentage = genre.getCashbackTuesday();
                 break;
             case WEDNESDAY:
                 cashbackPercentage = genre.getCashbackWednesday();
                 break;
-            case TUESDAY:
-                cashbackPercentage = genre.getCashbackTuesday();
+            case THURSDAY:
+                cashbackPercentage = genre.getCashbackThursday();
                 break;
             case FRIDAY:
                 cashbackPercentage = genre.getCashbackFriday();

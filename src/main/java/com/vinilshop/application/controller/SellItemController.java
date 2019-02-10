@@ -7,6 +7,7 @@ import com.vinilshop.domain.model.SellItem;
 import com.vinilshop.domain.service.SellItemService;
 import com.vinilshop.domain.service.SellService;
 import io.swagger.annotations.ApiOperation;
+import java.util.Collection;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,9 +54,8 @@ public class SellItemController {
     @ApiOperation(value = "Returns a list with all sell items.",
             produces = "application/json",
             httpMethod = "GET",
-            response = SellItem[].class,
             code = 200)
-    public ResponseEntity<?> findBySell(@PathVariable("idSell") Long idSell) {
+    public ResponseEntity<Collection<SellItem>> findBySell(@PathVariable("idSell") Long idSell) {
         Sell sell = verifySell(idSell);
         return new ResponseEntity<>(sellItemService.findBySell(sell), HttpStatus.OK);
     }
@@ -72,16 +72,15 @@ public class SellItemController {
     @ApiOperation(value = "Returns a sell by a given identifier.",
             produces = "application/json",
             httpMethod = "GET",
-            response = Sell.class,
             code = 200)
-    public ResponseEntity<?> findBySellAndId(@PathVariable("idSell") Long idSell,
+    public ResponseEntity<SellItem> findBySellAndId(@PathVariable("idSell") Long idSell,
             @PathVariable("id") Long id) {
         Sell sell = verifySell(idSell);
         return new ResponseEntity<>(sellItemService.findBySellAndId(sell, id), HttpStatus.OK);
     }
 
     /**
-     * Creates a new {@link Sell}.
+     * Creates a new {@link SellItem} on a {@link Sell}.
      *
      * @param idSell the {@link Sell} identifier.
      * @param sellItem a {@link SellItem} object.
@@ -93,9 +92,8 @@ public class SellItemController {
             consumes = "application/json",
             produces = "application/json",
             httpMethod = "POST",
-            response = SellItem.class,
             code = 201)
-    public ResponseEntity<?> add(@PathVariable("idSell") Long idSell,
+    public ResponseEntity<SellItem> add(@PathVariable("idSell") Long idSell,
             @RequestBody SellItem sellItem) {
         Sell sell = verifySell(idSell);
         if (!Objects.isNull(sellItem.getSell())
@@ -115,10 +113,10 @@ public class SellItemController {
      * @return a {@link ResponseEntity}.
      */
     @DeleteMapping(path = "/{id}")
-    @ApiOperation(value = "Deletes a cart.",
+    @ApiOperation(value = "Removes a sell item from a sell.",
             httpMethod = "DELETE",
             code = 200)
-    public ResponseEntity<?> remove(@PathVariable("idSell") Long idSell,
+    public ResponseEntity<Void> remove(@PathVariable("idSell") Long idSell,
             @PathVariable("id") Long id) {
         SellItem sellItem = sellItemService.findBySellAndId(new Sell(idSell), id);
         if (sellItem == null) {

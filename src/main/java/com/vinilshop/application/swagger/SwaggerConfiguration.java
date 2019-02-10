@@ -29,11 +29,13 @@ public class SwaggerConfiguration {
      */
     @Bean
     public Docket apiDoc() {
-        return new Docket(DocumentationType.SWAGGER_12)
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("Vinilshop")
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.vinilshop.application.controller"))
                 .paths(regex("/.*"))
                 .build()
+                .useDefaultResponseMessages(false)
                 .apiInfo(metaData());
     }
 

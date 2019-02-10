@@ -43,9 +43,9 @@
             <column name="name" value="POP"/>
             <column name="cashback_sunday" value="25"/>
             <column name="cashback_monday" value="7"/>
-            <column name="cashback_thursday" value="6"/>
+            <column name="cashback_tuesday" value="6"/>
             <column name="cashback_wednesday" value="2"/>
-            <column name="cashback_tuesday" value="10"/>
+            <column name="cashback_thursday" value="10"/>
             <column name="cashback_friday" value="15"/>
             <column name="cashback_saturday" value="20"/>
         </insert>
@@ -54,9 +54,9 @@
             <column name="name" value="MPB"/>
             <column name="cashback_sunday" value="30"/>
             <column name="cashback_monday" value="5"/>
-            <column name="cashback_thursday" value="10"/>
+            <column name="cashback_tuesday" value="10"/>
             <column name="cashback_wednesday" value="15"/>
-            <column name="cashback_tuesday" value="20"/>
+            <column name="cashback_thursday" value="20"/>
             <column name="cashback_friday" value="25"/>
             <column name="cashback_saturday" value="30"/>
         </insert>
@@ -65,9 +65,9 @@
             <column name="name" value="CLASSIC"/>
             <column name="cashback_sunday" value="35"/>
             <column name="cashback_monday" value="3"/>
-            <column name="cashback_thursday" value="5"/>
+            <column name="cashback_tuesday" value="5"/>
             <column name="cashback_wednesday" value="8"/>
-            <column name="cashback_tuesday" value="13"/>
+            <column name="cashback_thursday" value="13"/>
             <column name="cashback_friday" value="18"/>
             <column name="cashback_saturday" value="25"/>
         </insert>        
@@ -76,9 +76,9 @@
             <column name="name" value="ROCK"/>
             <column name="cashback_sunday" value="40"/>
             <column name="cashback_monday" value="10"/>
-            <column name="cashback_thursday" value="15"/>
-            <column name="cashback_wednesday" value="15"/>
             <column name="cashback_tuesday" value="15"/>
+            <column name="cashback_wednesday" value="15"/>
+            <column name="cashback_thursday" value="15"/>
             <column name="cashback_friday" value="20"/>
             <column name="cashback_saturday" value="40"/>
         </insert>

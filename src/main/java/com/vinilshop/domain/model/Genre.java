@@ -33,14 +33,14 @@ public class Genre implements Serializable {
     @Column(name = "cashback_monday", nullable = false)
     private Long cashbackMonday;
 
-    @Column(name = "cashback_thursday", nullable = false)
-    private Long cashbackThursday;
+    @Column(name = "cashback_tuesday", nullable = false)
+    private Long cashbackTuesday;
 
     @Column(name = "cashback_wednesday", nullable = false)
     private Long cashbackWednesday;
 
-    @Column(name = "cashback_tuesday", nullable = false)
-    private Long cashbackTuesday;
+    @Column(name = "cashback_thursday", nullable = false)
+    private Long cashbackThursday;
 
     @Column(name = "cashback_friday", nullable = false)
     private Long cashbackFriday;
@@ -83,12 +83,12 @@ public class Genre implements Serializable {
         this.cashbackMonday = cashbackMonday;
     }
 
-    public Long getCashbackThursday() {
-        return cashbackThursday;
+    public Long getCashbackTuesday() {
+        return cashbackTuesday;
     }
 
-    public void setCashbackThursday(Long cashbackThursday) {
-        this.cashbackThursday = cashbackThursday;
+    public void setCashbackTuesday(Long cashbackTuesday) {
+        this.cashbackTuesday = cashbackTuesday;
     }
 
     public Long getCashbackWednesday() {
@@ -99,12 +99,12 @@ public class Genre implements Serializable {
         this.cashbackWednesday = cashbackWednesday;
     }
 
-    public Long getCashbackTuesday() {
-        return cashbackTuesday;
+    public Long getCashbackThursday() {
+        return cashbackThursday;
     }
 
-    public void setCashbackTuesday(Long cashbackTuesday) {
-        this.cashbackTuesday = cashbackTuesday;
+    public void setCashbackThursday(Long cashbackThursday) {
+        this.cashbackThursday = cashbackThursday;
     }
 
     public Long getCashbackFriday() {
@@ -150,6 +150,6 @@ public class Genre implements Serializable {
 
     @Override
     public String toString() {
-        return "Genre{" + "id=" + id + ", name=" + name + ", cashbackSunday=" + cashbackSunday + ", cashbackMonday=" + cashbackMonday + ", cashbackThursday=" + cashbackThursday + ", cashbackWednesday=" + cashbackWednesday + ", cashbackTuesday=" + cashbackTuesday + ", cashbackFriday=" + cashbackFriday + ", cashbackSaturday=" + cashbackSaturday + '}';
+        return "Genre{" + "id=" + id + ", name=" + name + ", cashbackSunday=" + cashbackSunday + ", cashbackMonday=" + cashbackMonday + ", cashbackTuesday=" + cashbackTuesday + ", cashbackWednesday=" + cashbackWednesday + ", cashbackThursday=" + cashbackThursday + ", cashbackFriday=" + cashbackFriday + ", cashbackSaturday=" + cashbackSaturday + '}';
     }
 }

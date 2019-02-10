@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vinilshop.domain.service.SellService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -52,9 +53,8 @@ public class SellController {
     @ApiOperation(value = "Returns a list with all sells.",
             produces = "application/json",
             httpMethod = "GET",
-            response = Sell[].class,
             code = 200)
-    public ResponseEntity<?> findAll(@RequestParam(value = "initialDate", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate initialDate,
+    public ResponseEntity<Page<Sell>> findAll(@RequestParam(value = "initialDate", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate initialDate,
             @RequestParam(value = "finalDate", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate finalDate,
             Pageable pageable) {
         return new ResponseEntity<>(initialDate != null && finalDate != null
@@ -73,9 +73,8 @@ public class SellController {
     @ApiOperation(value = "Returns a sell by a given identifier.",
             produces = "application/json",
             httpMethod = "GET",
-            response = Sell.class,
             code = 200)
-    public ResponseEntity<?> findById(@PathVariable("id") Long id) {
+    public ResponseEntity<Sell> findById(@PathVariable("id") Long id) {
         Sell sell = sellService.findById(id);
         if (sell == null) {
             throw new ResourceNotFoundException(id);
@@ -92,9 +91,8 @@ public class SellController {
     @ApiOperation(value = "Initiates a new sell.",
             produces = "application/json",
             httpMethod = "POST",
-            response = Sell.class,
             code = 201)
-    public ResponseEntity<?> initiate() {
+    public ResponseEntity<Sell> initiate() {
         return new ResponseEntity<>(sellService.initiate(), HttpStatus.CREATED);
     }
 
@@ -107,10 +105,9 @@ public class SellController {
     @PatchMapping(path = "/{id}")
     @ApiOperation(value = "Finishes a sell.",
             produces = "application/json",
-            httpMethod = "POST",
-            response = Sell.class,
-            code = 201)
-    public ResponseEntity<?> finish(@PathVariable("id") Long id) {
+            httpMethod = "PATCH",
+            code = 200)
+    public ResponseEntity<Sell> finish(@PathVariable("id") Long id) {
         Sell sell = sellService.findById(id);
         if (sell == null) {
             throw new ResourceNotFoundException(id);

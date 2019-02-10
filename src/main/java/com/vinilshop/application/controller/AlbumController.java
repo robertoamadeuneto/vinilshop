@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.vinilshop.domain.service.AlbumService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -47,9 +48,8 @@ public class AlbumController implements Serializable {
     @ApiOperation(value = "Returns a list with all albums.",
             produces = "application/json",
             httpMethod = "GET",
-            response = Album[].class,
             code = 200)
-    public ResponseEntity<?> findAll(@RequestParam(value = "genre", required = false) String genreDescription,
+    public ResponseEntity<Page<Album>> findAll(@RequestParam(value = "genre", required = false) String genreDescription,
             Pageable pageable) {
         return new ResponseEntity<>(genreDescription != null
                 ? albumService.findByGenreOrderByNameAsc(genreDescription, pageable)
@@ -66,9 +66,8 @@ public class AlbumController implements Serializable {
     @ApiOperation(value = "Returns an album by a given identifier.",
             produces = "application/json",
             httpMethod = "GET",
-            response = Album.class,
             code = 200)
-    public ResponseEntity<?> findById(@PathVariable("id") Long id) {
+    public ResponseEntity<Album> findById(@PathVariable("id") Long id) {
         Album album = albumService.findById(id);
         if (album == null) {
             throw new ResourceNotFoundException(id);
