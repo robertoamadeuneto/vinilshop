@@ -3,7 +3,6 @@ package com.vinilshop.domain.service;
 import com.vinilshop.application.exception.SellCompletedException;
 import com.vinilshop.domain.model.EnumSellStatus;
 import com.vinilshop.domain.model.Sell;
-import com.vinilshop.domain.service.SellService;
 import com.vinilshop.infra.repository.SellRepository;
 import java.math.BigDecimal;
 import java.time.LocalDate;

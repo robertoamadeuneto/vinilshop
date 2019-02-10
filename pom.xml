@@ -92,6 +92,12 @@
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
+        
+        <!-- Jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -151,6 +157,30 @@
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
+            
+            <build>
+                <plugins>
+                    <!-- Skip Unit Tests -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.20</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                
+                    <!-- Skip Integration Tests -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.20</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 

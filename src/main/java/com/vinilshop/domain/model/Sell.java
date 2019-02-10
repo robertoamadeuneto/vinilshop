@@ -1,5 +1,6 @@
 package com.vinilshop.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vinilshop.infra.converter.EnumSellStatusConverter;
 import com.vinilshop.infra.converter.LocalDateConverter;
 import java.io.Serializable;
@@ -47,6 +48,7 @@ public class Sell implements Serializable {
     @Convert(converter = LocalDateConverter.class)
     private LocalDate finishedAt;
 
+    @JsonIgnore
     @OrderBy(value = "id")
     @OneToMany(mappedBy = "sell", fetch = FetchType.LAZY)
     private Collection<SellItem> sellItems;

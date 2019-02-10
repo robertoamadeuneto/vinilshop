@@ -1,7 +1,6 @@
 package com.vinilshop.infra.repository;
 
 import com.vinilshop.domain.model.Genre;
-import com.vinilshop.infra.repository.GenreRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;

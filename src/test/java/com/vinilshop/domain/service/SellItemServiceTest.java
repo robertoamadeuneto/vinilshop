@@ -3,8 +3,6 @@ package com.vinilshop.domain.service;
 import com.vinilshop.domain.model.Album;
 import com.vinilshop.domain.model.Sell;
 import com.vinilshop.domain.model.SellItem;
-import com.vinilshop.domain.service.SellItemService;
-import com.vinilshop.domain.service.SellService;
 import com.vinilshop.infra.repository.SellRepository;
 import java.util.Collection;
 import org.assertj.core.api.Assertions;

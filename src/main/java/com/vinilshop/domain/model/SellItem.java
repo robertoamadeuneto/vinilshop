@@ -30,7 +30,7 @@ public class SellItem implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sell_id", referencedColumnName = "id")

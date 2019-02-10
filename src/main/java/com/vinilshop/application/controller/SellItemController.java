@@ -7,6 +7,7 @@ import com.vinilshop.domain.model.SellItem;
 import com.vinilshop.domain.service.SellItemService;
 import com.vinilshop.domain.service.SellService;
 import io.swagger.annotations.ApiOperation;
+import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -73,7 +74,8 @@ public class SellItemController {
             code = 200)
     public ResponseEntity<?> findBySellAndId(@PathVariable("idSell") Long idSell,
             @PathVariable("id") Long id) {
-        return new ResponseEntity<>(sellItemService.findBySellAndId(new Sell(idSell), id), HttpStatus.OK);
+        Sell sell = verifySell(idSell);
+        return new ResponseEntity<>(sellItemService.findBySellAndId(sell, id), HttpStatus.OK);
     }
 
     /**
@@ -93,8 +95,11 @@ public class SellItemController {
     public ResponseEntity<?> add(@PathVariable("idSell") Long idSell,
             @RequestBody SellItem sellItem) {
         Sell sell = verifySell(idSell);
-        if (!sell.getId().equals(sellItem.getSell().getId())) {
+        if (!Objects.isNull(sellItem.getSell())
+                && !sell.getId().equals(sellItem.getSell().getId())) {
             throw new SellIdConflictException(sellItem.getSell().getId());
+        } else {
+            sellItem.setSell(sell);
         }
         return new ResponseEntity<>(sellItemService.add(sell, sellItem), HttpStatus.CREATED);
     }
