@@ -12,7 +12,7 @@ To build this project, run this Maven command: `mvn clean install`. You can also
 ## Run
 A PostgreSQL database called `vinilshop` on port `5432` is required to run this project.
 If you have it, just run the following command inside the project folder: `java -jar target/vinilshop.jar`.
-The application will be available through the port`8080`.
+The application will be available through the port `8080`.
 
 ## Endpoints
 ### Albums
@@ -55,4 +55,4 @@ Adds an item to a sell. Example: http://localhost:8080/api/sells/1/items - Reque
 Removes an item from a sell. Example: http://localhost:8080/api/sells/1/items/1
 
 ## API Docs
-Access`http://localhost:8080/swagger-ui.html` to read the complete API documentation.
+Access `http://localhost:8080/swagger-ui.html` to read the complete API documentation.
