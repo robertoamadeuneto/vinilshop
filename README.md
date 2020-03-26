@@ -35,23 +35,23 @@ Available query params:
 2) `/api/sells/{id}` Http method: GET.<br>
 Finds a specific sell by its identifier.
 
-3) `/api/sells`. Http mthod: POST.<br>
+3) `/api/sells`. Http method: POST.<br>
 Initiates a new sell. It's not required to pass an object on the request body: Example: http://localhost:8080/api/sells
 
-4) `/api/sells`. Http mthod: PATCH.<br>
+4) `/api/sells`. Http method: PATCH.<br>
 Finishes a new sell. It's not required to pass an object on the request body: Example: http://localhost:8080/api/sells
 
 ### Sell Items
 1) `/api/sells/{idSell}/items`. Http method: GET.<br>
 Finds all items of a specific sell.  Example: http://localhost:8080/api/sells/1/items
 
-2) `/api/sells/{idSell}/items/{id}` Http metod: GET.<br>
+2) `/api/sells/{idSell}/items/{id}` Http method: GET.<br>
 Finds a specific item of a specific sell. Example: http://localhost:8080/api/sells/1/items/1
 
-3) `/api/sells/{idSell}/items`. Http mthod: POST.<br>
+3) `/api/sells/{idSell}/items`. Http method: POST.<br>
 Adds an item to a sell. Example: http://localhost:8080/api/sells/1/items - Request body: `{"sell": { "id": 1 }, "album": {"id": 1}}`
 
-4) `/api/sells/{idSell}/items/{id}`. Http mthod: DELETE.<br>
+4) `/api/sells/{idSell}/items/{id}`. Http method: DELETE.<br>
 Removes an item from a sell. Example: http://localhost:8080/api/sells/1/items/1
 
 ## API Docs
